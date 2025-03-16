@@ -1,0 +1,10 @@
+# Enhanced WandB configuration for diffusion policies
+wandb_config:
+  name: "DMPO_seed${seed}_squash${agent_config.agent_config.model.actor_squash}_scale${agent_config.agent_config.model.action_scale}"
+  project: "dmpo-diffusion"
+  entity: null
+  mode: "online"
+  group: "$experiments"  # Standard Hydra interpolation syntax
+  job_type: "training"
+  tags: ["diffusion-policy", "dmpo"]
+  notes: "DMPO with diffusion policy training run"
