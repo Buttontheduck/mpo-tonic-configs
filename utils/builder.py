@@ -11,12 +11,6 @@ import torch
 
 def build_model(cfg):
     head_cfg = cfg["actor"]["head"]
-    print("\n --------fenerbahce------ \n")
-    print("\n --------fenerbahce------ \n")
-    print(head_cfg["hidden_dim"])
-    print(head_cfg["hidden_dim"])
-    print("\n --------fenerbahce------ \n")
-    print("\n --------fenerbahce------ \n")
     actor_head = models.DiffusionPolicyHead(
         device=head_cfg["device"],
         num_diffusion_steps=head_cfg["num_diffusion_steps"],
@@ -59,11 +53,14 @@ def build_model(cfg):
     # Head
     if critic_cfg["head"]["name"] == "ValueHead":
         critic_head = models.ValueHead()
+    
+    critic_device = critic_cfg["device"]
 
     critic = models.Critic(
         encoder=critic_encoder,
         torso=critic_torso,
-        head=critic_head
+        head=critic_head,
+        device= critic_device
     )
 
     # 4) Observation normalizer

@@ -12,7 +12,7 @@ agent_config:
         name: IdentityTorso
       head:
         name: DiffusionPolicyHead
-        device: cpu  # Change to cuda for GPU acceleration
+        device: cpu  
         num_diffusion_steps: 50
         hidden_dim: 256
         n_hidden: 4
@@ -30,6 +30,7 @@ agent_config:
         activation: ReLU
       head:
         name: ValueHead
+      device: cpu
     observation_normalizer:
       name: MeanStd
     return_normalizer: null
