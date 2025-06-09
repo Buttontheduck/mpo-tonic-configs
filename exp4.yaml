@@ -2,7 +2,9 @@ defaults:
   - agent_config: dmpo   
   - trainer_config: trainer_config         
   - wandb_config: diffusion_wandb 
+  - platform: bwuni_all_gpus   # Use your existing platform config
   - _self_ 
+  - override hydra/sweeper: list
 
 
 header: "import tonic.torch"
@@ -24,6 +26,11 @@ path: ""
 hydra:
   mode: MULTIRUN 
   sweeper:
-    params:
-      seed: 0,1
-      "agent_config.agent_config.actor_updater.action_penalization": False
+    grid_params:
+      seed: 0,1,2
+    list_params:
+      "agent_config.agent_config.model.actor_squash": true, true, false
+      "agent_config.agent_config.model.action_scale": 1, 2, 1
+
+
+

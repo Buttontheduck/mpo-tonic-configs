@@ -4,8 +4,6 @@ defaults:
   - wandb_config: diffusion_wandb  
 
 
-
-
 header: "import tonic.torch"
 agent: "tonic.torch.agents.DMPO()"
 environment: 'tonic.environments.Gym("Pendulum-v1")'

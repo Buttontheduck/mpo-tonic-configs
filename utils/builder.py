@@ -6,6 +6,7 @@ Hydra builder function for DMPO agent
 """
 from tonic.torch.agents.dmpo import models, normalizers, updaters
 from tonic.torch.agents.diffusion_utils.utils import IdentityEncoder, IdentityTorso
+from tonic import replays 
 import torch.nn
 import torch
 
@@ -92,7 +93,8 @@ def build_actor_updater(cfg):
             learning_rate = optim_cfg["learning_rate"]
             actor_optimizer = lambda params: torch.optim.Adam(params, lr=learning_rate)
 
-            dual_optimizer = None
+            dual_learning_rate = optim_cfg["dual_learning_rate"]
+            dual_optimizer = lambda params: torch.optim.Adam(params, lr=dual_learning_rate)
 
         
 
@@ -110,7 +112,8 @@ def build_actor_updater(cfg):
             action_penalization=actor_cfg["action_penalization"],
             actor_optimizer=actor_optimizer,
             dual_optimizer=dual_optimizer,
-            gradient_clip=actor_cfg["gradient_clip"]
+            actor_gradient_clip=actor_cfg["actor_gradient_clip"],
+            dual_gradient_clip=actor_cfg["dual_gradient_clip"]
         )
     
     raise ValueError(f"Unsupported actor updater: {actor_cfg['name']}")
@@ -137,3 +140,20 @@ def build_critic_updater(cfg):
     
     raise ValueError(f"Unsupported critic updater: {critic_cfg['name']}")
 
+
+
+def build_replay_updater(cfg):
+
+    if cfg["name"] == "Buffer":
+        size = cfg["size"]
+        batch_size = cfg["batch_size"]
+        discount_factor = cfg["discount_factor"]
+        steps_before_batches = cfg["steps_before_batches"]
+        return_steps = cfg["return_steps"]
+        steps_between_batches = cfg["steps_between_batches"] 
+        
+        return replays.Buffer(size=size, batch_size=batch_size,\
+            discount_factor=discount_factor, steps_before_batches=steps_before_batches, \
+                return_steps=return_steps,  steps_between_batches=steps_between_batches )        
+         
+    raise ValueError(f"Unsupported Replay updater: {cfg['name']}")

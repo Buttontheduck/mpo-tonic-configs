@@ -1,10 +1,10 @@
 # Enhanced WandB configuration for diffusion policies
 wandb_config:
-  name: "DMPO_seed${seed}_squash${agent_config.agent_config.model.actor_squash}_scale${agent_config.agent_config.model.action_scale}"
-  project: "dmpo-diffusion"
+  name: "Extrme_DMPO_bounded_seed${seed}_epsilon_${agent_config.agent_config.actor_updater.epsilon}" #_dualLR_${agent_config.agent_config.actor_updater.optimizer.dual_learning_rate}_ActorGradClip_${agent_config.agent_config.actor_updater.actor_gradient_clip}_DualGradClip_${agent_config.agent_config.actor_updater.dual_gradient_clip}" 
+  project: "Walker-run"
   entity: null
   mode: "online"
-  group: "$experiments"  # Standard Hydra interpolation syntax
+  group: "epsilon_${agent_config.agent_config.actor_updater.epsilon}" # Standard Hydra interpolation syntax
   job_type: "training"
   tags: ["diffusion-policy", "dmpo"]
-  notes: "DMPO with diffusion policy training run"
+  notes: "DMPO with diffusion policy for diffent epsilon "

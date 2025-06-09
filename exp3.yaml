@@ -26,7 +26,7 @@ hydra:
   mode: MULTIRUN 
   sweeper:
     grid_params:
-      seed: 0,1
+      seed: 0,1,2
     list_params:
       "agent_config.agent_config.model.actor_squash": true, true, false
       "agent_config.agent_config.model.action_scale": 1, 2, 1

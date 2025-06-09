@@ -66,11 +66,11 @@ if __name__ == "__main__":
         root_directory = "."  # Current directory by default
         
     # Optional command line arguments
-    max_depth = 2 # Set to a number to limit directory depth
+    max_depth = 3 # Set to a number to limit directory depth
     
     # Generate the structure
     
-    root_directory = '/Users/batin13/Desktop/KIT/MPO/new_tonic'
+    root_directory = '/home/kit/anthropomatik/ln2554/diffusion_rl'
     structure = generate_project_structure(root_directory, max_depth=max_depth)
     
     # Print the root directory name

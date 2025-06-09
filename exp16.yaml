@@ -1,13 +1,15 @@
 defaults:
   - agent_config: dmpo   
   - trainer_config: trainer_config         
-  - wandb_config: diffusion_wandb 
+  - wandb_config: wandb2 
+  - platform: bwuni_dev_gpus
   - _self_ 
 
+#  - platform: bwuni_dev_gpus
 
 header: "import tonic.torch"
 agent: "tonic.torch.agents.DMPO()"
-environment: 'tonic.environments.Gym("Pendulum-v1")'
+environment: 'tonic.environments.ControlSuite("cartpole-swingup")'
 test_environment: null
 trainer: "tonic.Trainer()"
 before_training: ""
@@ -25,5 +27,6 @@ hydra:
   mode: MULTIRUN 
   sweeper:
     params:
-      seed: 0,1
-      "agent_config.agent_config.actor_updater.action_penalization": False
+      seed: 0
+      "agent_config.agent_config.actor_updater.action_penalization": false
+      "agent_config.agent_config.actor_updater.epsilon": 0.5

@@ -16,7 +16,7 @@ agent_config:
         num_diffusion_steps: 50
         hidden_dim: 256
         n_hidden: 4
-        n_blocks: null      # Does Nothing
+        n_blocks: None   # Does Nothing
         sigma_data: 1.0
         sampler_type: ddim  # Options: ddim, ode
         model_type: mlp     # Options: mlp, resnet
@@ -51,7 +51,7 @@ agent_config:
   # Actor updater (for diffusion policy)
   actor_updater:
     name: DiffusionMaximumAPosterioriPolicyOptimization
-    num_samples: 20
+    num_samples: 2
     epsilon: 0.1
     epsilon_penalty: 0.001
     epsilon_mean: 0.001
@@ -61,18 +61,16 @@ agent_config:
     initial_log_alpha_std: 10.0
     min_log_dual: -18.0
     per_dim_constraining: true
-    action_penalization: false
-    actor_gradient_clip: 0
-    dual_gradient_clip: 0
+    action_penalization: true
+    gradient_clip: 0
     optimizer:
       name: Adam
       learning_rate: 0.0003
-      dual_learning_rate: 0.02
 
   # Critic updater
   critic_updater:
     name: DiffusionExpectedSARSA
-    num_samples: 20
+    num_samples: 2
     optimizer:
       name: Adam
       learning_rate: 0.0003
